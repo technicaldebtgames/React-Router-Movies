@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import MovieCard from './MovieCard';
 
 const MovieList = props => {
   return (
@@ -11,24 +13,15 @@ const MovieList = props => {
 }
 
 function MovieDetails({ movie }) {
-  const { title, director, metascore, stars } = movie;
-  return (
-    <div className="movie-card">
-      <h2>{title}</h2>
-      <div className="movie-director">
-        Director: <em>{director}</em>
-      </div>
-      <div className="movie-metascore">
-        Metascore: <strong>{metascore}</strong>
-      </div>
-      <h3>Actors</h3>
+  const { title, director, metascore, stars, id } = movie;
 
-      {stars.map(star => (
-        <div key={star} className="movie-star">
-          {star}
-        </div>
-      ))}
-    </div>
+  // I was going to use useHistory for a more dynamic url, but it was giving me errors.
+  // I am not sure but I think it may have been related to some issue I was having with
+  // ports being used between the server and the client. (Server says it is listening
+  // on port 5000, but client is opening on localhost:3000 for some reason. The app
+  // works fine without this, which confuses me, BUT it is working, only without useHistory.)
+  return (
+    <Link to={`movies/${id}`}><MovieCard m={movie}></MovieCard></Link>
   );
 }
 
